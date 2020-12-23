@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            {{ __('Dashboard') }}
+            {{ __('Edit Product') }}
         </h2>
     </x-slot>
 
@@ -10,10 +10,6 @@
             <div class="overflow-hidden bg-white shadow-md sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     You're logged in!
-                </div>
-                <div class="w-full p-6">
-                    <a class="p-3 text-white bg-indigo-500 rounded" href="{{ route('products.index') }}">Products List</a>
-
                 </div>
             </div>
         </div>

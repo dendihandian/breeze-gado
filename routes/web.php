@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,4 +22,18 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+Route::prefix('products')->name('products.')->middleware(['auth'])->group(function () {
+    Route::get('/', [ProductController::class, 'index'])->name('index');
+    Route::post('/', [ProductController::class, 'store'])->name('store');
+    Route::get('/create', [ProductController::class, 'create'])->name('create');
+    Route::get('/factory/{count}', [ProductController::class, 'create'])->name('create');
+
+    Route::prefix('{product}')->group(function () {
+        Route::get('/', [ProductController::class, 'show'])->name('show');
+        Route::patch('/', [ProductController::class, 'update'])->name('update');
+        Route::delete('/', [ProductController::class, 'delete'])->name('delete');
+        Route::get('/edit', [ProductController::class, 'edit'])->name('edit');
+    });
+});
+
+require __DIR__ . '/auth.php';
