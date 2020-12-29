@@ -11,10 +11,6 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     You're logged in!
                 </div>
-                <div class="w-full p-6">
-                    <a class="p-3 text-white bg-indigo-500 rounded" href="{{ route('products.index') }}">Products List</a>
-
-                </div>
             </div>
         </div>
     </div>
