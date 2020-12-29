@@ -5,6 +5,7 @@
         </h2>
 
         {{-- Product List goes here --}}
+        @livewire('search-products')
 
     </x-slot>
 </x-app-layout>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -39,5 +40,13 @@ class ProductController extends Controller
     public function delete($productId)
     {
         return 'delete';
+    }
+
+
+    // misc
+    public function factory($count)
+    {
+        Product::factory($count)->create();
+        return redirect()->back();
     }
 }
