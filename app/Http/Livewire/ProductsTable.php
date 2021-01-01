@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 
 class ProductsTable extends Component
 {
+    public $previous_search = '';
     public $search = '';
     public $page = 1;
     public $length = 10;
@@ -29,9 +30,20 @@ class ProductsTable extends Component
             $count = $products->count();
             $pages_count = round($count / $this->length);
 
-            $products = $products
-                ->skip(($this->page - 1) * $this->length)
-                ->take($this->length);
+            if ($pages_count <= 0) {
+                $products = $products->take($this->length);
+            } else {
+                $products = $products
+                    ->skip(($this->page - 1) * $this->length)
+                    ->take($this->length);
+            }
+
+
+            if ($this->previous_search != $this->search) {
+                $this->page = 1;
+            }
+
+            $this->previous_search = $this->search;
         } else {
             $products = $products
                 ->skip(($this->page - 1) * $this->length)
