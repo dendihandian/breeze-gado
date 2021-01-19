@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -17,36 +18,32 @@ class ProductController extends Controller
         return view('products.create');
     }
 
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        return 'store';
+        Product::create($request->only(Product::FILLABLE));
+        return redirect()->back();
+    }
+    
+    public function show(int $productId)
+    {
+        $product = Product::findOrFail($productId);
+        return view('products.show', compact('product'));
+    }
+    
+    public function edit(int $productId)
+    {
+        $product = Product::findOrFail($productId);
+        return view('products.edit', compact('product'));
+    }
+    
+    public function update(ProductRequest $request, int $productId)
+    {
+        Product::where('id', $productId)->update($request->only(Product::FILLABLE));
+        return redirect()->back();
     }
 
-    public function show($productId)
-    {
-        return view('products.show');
-    }
-
-    public function edit($productId)
-    {
-        return view('products.edit');
-    }
-
-    public function update(Request $request, $productId)
-    {
-        return 'update';
-    }
-
-    public function delete($productId)
+    public function delete(int $productId)
     {
         return 'delete';
-    }
-
-
-    // misc
-    public function factory($count)
-    {
-        Product::factory($count)->create();
-        return redirect()->back();
     }
 }
